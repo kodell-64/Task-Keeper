@@ -4,7 +4,7 @@
 
 Phase 1 release.
 
-Simple CRUD app with backend service written in Golang.
+Simple CRUD app. Runs entirely on the client-side i.e. in the browser.
 
 ## Structure
 
