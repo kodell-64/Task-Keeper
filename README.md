@@ -4,11 +4,11 @@
 
 Phase 1 release.
 
+Task Keeper allows one to simply create and delete tasks.
+
 Simple CRUD app. Runs entirely on the client-side i.e. in the browser.
 
-## Structure
-
-### File Structure
+## File Structure
 
 The overall file structure is as follows:
 
