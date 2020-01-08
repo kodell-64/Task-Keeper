@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<!--- Phase 1 for Jahnel Group, author Korey O'Dell --->
+<head>
+  <meta charset="utf-8">
+  <title>Task Keeper&trade; - POC - Jahnel Group - Korey O'Dell - Phase 1 deliverable</title>
+  <!--- jquery first --->
+  <script
+     src="https://code.jquery.com/jquery-3.4.1.min.js"
+	 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	 crossorigin="anonymous">
+  </script>
+  <!--- pull in bootstrap --->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!--- we'll embed javascript and css right here - to keep it simple --->
+  <script type="text/javascript">
+    var tasks = [];
+    function display_tasks() {
+       var text = "";
+       if(tasks.length == 0)
+       {
+          $('#tasks_list').html("&nbsp<br />".repeat(4));
+          return;
+       }
+       text += "<ul class=\"list-group\">";
+       for (i = 0; i < tasks.length; i++) {
+          text += "<li class=\"list-group-item d-flex justify-content-between align-items-center\">";
+          text += tasks[i];
+          text += "<button class=\"btn btn-outline-secondary\" onclick=\"delete_task("+i+");display_tasks();return false;\">delete</button>";
+          text += "</li>";
+       }
+       text += "</ul>";
+       $('#tasks_list').html(text);
+    }
+    function add_task() {
+       var task = $('#task_new').val();
+       $('#task_new').val(""); // clear this
+       tasks.push(task);
+    }
+    function delete_task(i) {
+       tasks.splice(i, 1);
+    }
+    function is_enter_pressed(event) {
+       if(event.keyCode == 13)
+       {
+          return true;
+       }
+       return false;
+    }
+  </script>
+  <style>
+    .spacer { line-height:2em; }
+    .title { text-decoration: bold; font-size:2.0em; }
+  </style>
+</head>
+  
+<body>
+  <div class="container">
+    <form>
+    <div>
+      <span class="title">Task Keeper&trade; - keeping your CRUD tasks simple - since 2020.</span>
+    </div>
+    <div class="spacer">
+      &nbsp;
+    </div>
+    <div>
+      <h4>Task List</h4>
+      <div class="card" id="tasks_list">
+        <script>display_tasks();</script>
+      </div>
+    </div>
+    <div class="spacer">
+      &nbsp;
+    </div>
+    <div>
+      <h4>Create Task</h4>
+      <div class="input-group mb-3">
+        <input id="task_new" type="text" class="form-control" onkeypress="if(is_enter_pressed(event)){add_task();display_tasks();return false;};" placeholder="enter a new task...">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary" type="button" onclick="add_task();display_tasks();return false;">add</button>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+</body>
+</html>
+
+
