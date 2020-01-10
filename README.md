@@ -17,7 +17,7 @@ The overall file structure is as follows:
 ```text
 /Task-Keeper/
 ├── public_html
-│   └── index.html
+│   └── main.html
 │   └── process.go
 │   └── process_test.go
 ├── mysql
