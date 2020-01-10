@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<!--- Phase 2 for Jahnel Group, author Korey O'Dell --->
+<head>
+  <meta charset="utf-8">
+  <title>Task Keeper&trade; - POC - Jahnel Group - Korey O'Dell - Phase 2 deliverable</title>
+  <!--- jquery first --->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <!--- pull in bootstrap --->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  <!--- we'll embed javascript and css right here - to keep it simple --->
+  <script type="text/javascript">
+    var tasks = [];
+    function display_tasks() {
+    $.get("/get", function(data) {
+       if(data)
+       {
+          tasks = data.split("\n");
+          var text = "";
+
+          text += '<ul class="list-group">';
+          for (i = 0; i < tasks.length-1; i++) {
+             text += '<li class="list-group-item">';
+             var task_elems = tasks[i].split(":");
+             if(task_elems[2] == true){
+                text += '<span class="strikethrough">'+task_elems[1]+'</span>';
+             }
+             else{
+                text += '<span>'+task_elems[1]+'</span>'
+             }
+             text += '<button class="btn btn-outline-secondary float-right" onclick="edit_task('+i+');return false;">edit</button>';
+             text += '<button class="btn btn-outline-secondary float-right" onclick="complete_task('+task_elems[0]+');return false;">complete</button>';
+             text += '<button class="btn btn-outline-secondary float-right" onclick="delete_task('+task_elems[0]+');return false;">delete</button>';
+             text += '</li>';
+          }
+          text += '</ul>';
+          $('#tasks_list').html(text);
+       }
+       else {
+          $('#tasks_list').html("&nbsp<br />".repeat(4));
+       }
+       });
+    }
+    function complete_task(i) {
+       if(i){
+          $.post("/complete", {task: i}, function(result){
+             display_tasks();
+          });
+       }
+    }
+    function create_task() {
+       $.post("/create", {task: $("#task").val()}, function(result){
+          display_tasks();
+       });         
+    }
+    function task_editor() {
+       var text = "";
+       text += '<h4>Create Task</h4>';
+       text += '<div class="input-group mb-3">';
+       text += '<input name="task" id="task" type="text" class="form-control" onkeypress="if(is_enter_pressed(event)){create_task();return false;};" placeholder="enter a new task...">';
+       text += '<div class="input-group-prepend">';
+       text += '<button class="btn btn-outline-secondary" type="button" onclick="create_task();return false;">add</button>';
+       text += '</div>';
+       text += '</div>';
+       $("#create_edit_task").html(text);
+    }
+    function delete_task(i) {
+       if(i){
+          $.post("/delete", {task: i}, function(result){
+             display_tasks();
+          });
+       }
+    }
+    function edit_task(i) {
+       var text = "";
+       text += '<h4>Edit Task</h4>';
+       var task_elems = tasks[i].split(":");
+       text += '<div class="input-group mb-3">';
+       text += '<input id="edit_task" type="text" class="form-control" onkeypress="if(is_enter_pressed(event)){save_task('+task_elems[0]+');return false;}" value="'+task_elems[1]+'">';
+       text += '<div class="input-group-prepend">';
+       text += '<button class="btn btn-outline-secondary" type="button" onclick="save_task('+task_elems[0]+');return false;">save</button>';
+       text += '<button class="btn btn-outline-secondary" type="button" onclick="task_editor();return false;">cancel</button>';
+       text += '</div>';
+       $("#create_edit_task").html(text);
+
+                          }
+    function save_task(i) {
+       $.post("/save", {task: $("#edit_task").val(), i: i}, function(result){
+       display_tasks();
+       task_editor();
+       });
+    }
+    function is_enter_pressed(event) {
+       if(event.keyCode == 13)
+       {
+          return true;
+       }
+       return false;
+    }
+  </script>
+  <style>
+    .spacer { line-height:2em; }
+    .title { text-decoration: bold; font-size:2.0em; }
+    .strikethrough { text-decoration: line-through; }
+  </style>
+</head>
+  
+<body>
+  <div class="container">
+    <form method="Post">
+
+    <div>
+      <h4>Task List</h4>
+      <div class="card" id="tasks_list">
+        <script>display_tasks();</script>
+      </div>
+    </div>
+    <div class="spacer">
+      &nbsp;
+    </div>
+    <div id="create_edit_task">
+      <script>task_editor();</script>
+
+    </div>
+    </form>
+  </div>
+</body>
+</html>
+
+
