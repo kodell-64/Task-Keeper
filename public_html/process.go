@@ -1,11 +1,11 @@
 package main
 
 import (
-    "fmt"
+	"fmt"
 	"html/template"
 	"log"
-    "net/http"
-    "github.com/gorilla/mux"
+	"net/http"
+	"github.com/gorilla/mux"
 	"time"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
@@ -18,16 +18,16 @@ type PageVariables struct {
 }
 
 func main() {
-    r := mux.NewRouter()
+	r := mux.NewRouter()
 
-    r.HandleFunc("/", MainPage)
+	r.HandleFunc("/", MainPage)
 	r.HandleFunc("/complete", CompleteTask)
 	r.HandleFunc("/create", CreateTask)
 	r.HandleFunc("/delete", DeleteTask)
 	r.HandleFunc("/get", GetTasks)
 	r.HandleFunc("/save", SaveTask)
 	log.Print("starting up")
-    http.ListenAndServe(":8000", r)
+	http.ListenAndServe(":8000", r)
 }
 
 func MainPage(w http.ResponseWriter, r *http.Request) {
