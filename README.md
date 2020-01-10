@@ -6,7 +6,7 @@ Phase 2 release.
 
 Task Keeper allows one to simply create and delete tasks.
 
-Uses gorilla-mux for routing and mysql-driver for RDMS connectivity.
+Uses gorilla-mux for routing and mysql-driver for RDBMS connectivity.
 Routed, API service provided by process.go written in Golang.
 Release also contains unit tests in process_test.go - usage instructions below.
 
