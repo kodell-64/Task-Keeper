@@ -24,14 +24,17 @@ The overall file structure is as follows:
 
 ## Setup
 
-Create a mysql database and user. The code currently expects a 'jg' database name and databse username. Change as you wish.
+Create a mysql database and user. The code currently expects a 'jgdb' database name and 'jg' database username. Default password used is 'jgpass'. Change as desired.
 
-Import mysql/db_export.txt into your mysql db with mysql -u jg jg -p < mysql/db_export.txt
+Import mysql/db_export.txt into your mysql db with mysql -u jg jgdb -p < mysql/db_export.txt
 
 Build the Golang binary with 'go build process.go'. This will produce the runnable binary named 'process'.
 
 ## Run
 
-Start the application with './process'. Browse to http://localhost:8000 to begin using Task Keeper.
+Start the application by executing './process' within your shell. Browse to http://localhost:8000 to begin using Task Keeper.
 
+## Usage
+
+One can create, edit, mark-as-complete and delete tasks.
 
