@@ -25,11 +25,13 @@ The overall file structure is as follows:
 ## Setup
 
 Create a mysql database and user. The code currently expects a 'jg' database name and databse username. Change as you wish.
+
 Import mysql/db_export.txt into your mysql db with mysql -u jg jg -p < mysql/db_export.txt
+
 Build the Golang binary with 'go build process.go'. This will produce the runnable binary named 'process'.
 
 ## Run
 
-Start the Golang service by running '
-The application can be located at http://localhost/<path_to_index.html>.
+Start the application with './process'. Browse to http://localhost:8000 to begin using Task Keeper.
+
 
