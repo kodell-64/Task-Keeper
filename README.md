@@ -32,6 +32,12 @@ Import mysql/db_export.txt into your mysql db with mysql -u jg jgdb -p < mysql/d
 
 Build the Golang binary with 'go build process.go'. This will produce the runnable binary named 'process'.
 
+If you do not have the gorilla-mux or mysql driver packages installed, install them per your O/S. Debian/Ubuntu uses the follow aptitude commands for installation:
+
+'apt-get install golang-github-gorilla-mux-dev'
+
+'apt-get install golang-github-go-sql-driver-mysql-dev'
+
 ## Run
 
 Start the application by executing './process' within your shell. Browse to http://localhost:8000 to begin using Task Keeper.
@@ -42,4 +48,4 @@ One can create, edit, mark-as-complete and delete tasks.
 
 ## Testing
 
-One can run a small suite of unit tests against the service by executing 'go test'. Have a look 'process_test.go' to review the tests that have been implemented.
+One can run a small suite of unit tests against the service by executing 'go test'. Have a look at 'process_test.go' to review the tests that have been implemented.
