@@ -2,14 +2,15 @@ package main
 import (
 	"io/ioutil"
 	"net/http"
-    "net/http/httptest"
+	"net/http/httptest"
 	"net/url"
-    "testing"
+	"testing"
 	"strings"
 	"log"
 )
 
-// This module POSTS (creates) a task with a test entry. Then, GETs it.
+// This module POSTS (creates) a task with a test entry. Then, GETs it. Finally, the task is deleted
+// and ensured to be removed.
 // Many more tests could be added here.
 
 const (

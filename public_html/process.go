@@ -43,7 +43,6 @@ func CompleteTask(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 	if r.Method == "POST" {
 		task := r.FormValue("task")
-		log.Print("in CompleteTask task: ",task)
 		complete, err := db.Prepare("update tasks set complete=1-complete where id=?")
 		if err != nil {
 			log.Print("complete failed");
@@ -71,7 +70,6 @@ func DeleteTask(w http.ResponseWriter, r *http.Request) {
 	db := dbConn()
 	if r.Method == "POST" {
 		task := r.FormValue("task")
-		log.Print("task:", task)
 		delete, err := db.Prepare("delete from tasks where id=?")
 		if err != nil {
 			log.Print("delete failed");
@@ -103,7 +101,6 @@ func SaveTask(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		task := r.FormValue("task")
 		i := r.FormValue("i")
-		log.Print("in SaveTask idtask:",task)
 		save, err := db.Prepare("update tasks set task=? where id=?")
 		if err != nil {
 			log.Print("save failed");
@@ -113,13 +110,13 @@ func SaveTask(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func dbConn() (db *sql.DB) {
-    dbDriver := "mysql"
-    dbUser := "jg"
-    dbPass := "jgpass"
-    dbName := "jgdb"
-    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
-    if err != nil {
-        panic(err.Error())
-    }
-    return db
+	dbDriver := "mysql"
+	dbUser := "jg"
+	dbPass := "jgpass"
+	dbName := "jgdb"
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	if err != nil {
+		panic(err.Error())
+	}
+	return db
 }
