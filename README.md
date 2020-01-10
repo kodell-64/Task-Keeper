@@ -20,6 +20,8 @@ The overall file structure is as follows:
 │   └── index.html
 │   └── process.go
 │   └── process_test.go
+├── mysql
+│   └── db_export.txt
 ```
 
 ## Setup
@@ -38,3 +40,6 @@ Start the application by executing './process' within your shell. Browse to http
 
 One can create, edit, mark-as-complete and delete tasks.
 
+## Testing
+
+One can run a small suite of unit tests against the service by executing 'go test'. Have a look 'process_test.go' to review the tests that have been implemented.
